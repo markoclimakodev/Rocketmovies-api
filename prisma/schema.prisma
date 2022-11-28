@@ -18,9 +18,7 @@ model Users {
   avatar     String
   created_at DateTime @default(now())
   updated_t  DateTime @updatedAt
-
-  movies Movies[]
-  Tags   Tags[]
+  Movies     Movies[]
 }
 
 model Movies {
@@ -28,20 +26,10 @@ model Movies {
   title       String
   description String
   rating      Int
+  tags        String
   created_at  DateTime @default(now())
   updated_t   DateTime @updatedAt
-  tags        String
   userId      String
 
-  user Users  @relation(fields: [userId], references: [id])
-  Tags Tags[]
-}
-
-model Tags {
-  id       String @id @default(uuid())
-  name     String
-  moviesId String
-  usersId  String
-  movie    Movies @relation(fields: [moviesId], references: [id])
-  user     Users  @relation(fields: [usersId], references: [id])
+  user Users @relation(fields: [userId], references: [id])
 }
