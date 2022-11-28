@@ -1,13 +1,10 @@
 import { Router } from 'express';
-import { createMovies } from '../app/useCases/movies/createMovie';
-import { deleteMovies } from '../app/useCases/movies/deleteMovie';
-import { listMovies } from '../app/useCases/movies/listMovies';
-import { updateMovies } from '../app/useCases/movies/updateMovie';
+import { MovieController } from '../controllers/movies/MovieController';
 
-export const router = Router();
+const movieController = new MovieController();
+export const moviesRoutes = Router();
 
-router.post('/users/:userId/movies', createMovies);
-router.get('/movies/:userId', listMovies);
-router.put('/movies/:userId/:movieId/',updateMovies)
-router.delete('/movies/:userId/:movieId/',deleteMovies)
-
+moviesRoutes.post('/movies/:userId', movieController.create);
+moviesRoutes.get('/movies/:userId', movieController.list);
+moviesRoutes.put('/movies/:userId/:movieId', movieController.update);
+moviesRoutes.delete('/movies/:userId/:movieId', movieController.delete);
