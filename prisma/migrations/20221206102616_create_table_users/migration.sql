@@ -6,5 +6,5 @@ CREATE TABLE "Users" (
     "password" TEXT NOT NULL,
     "avatar" TEXT NOT NULL,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_t" DATETIME NOT NULL
+    "updated_at" DATETIME NOT NULL
 );

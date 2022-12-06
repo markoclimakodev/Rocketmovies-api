@@ -62,6 +62,11 @@ export class UserController {
         return response.status(201).json({ message: 'Email already in use' });
       }
 
+      // if (!name && !email) {
+      //   user.name = name ?? user.name;
+      //   user.email = name ?? user.email;
+      // }
+
       if (password && !old_password) {
         return response
           .status(201)
@@ -84,8 +89,8 @@ export class UserController {
           id: userId,
         },
         data: {
-          name: name,
-          email: email,
+          name: name ?? user.name,
+          email: email ?? user.email,
           password: hashedPassword,
         },
       });
