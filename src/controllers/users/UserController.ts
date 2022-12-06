@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import {hash,compare} from 'bcryptjs'
+import { hash, compare } from 'bcryptjs';
 
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
@@ -8,13 +8,21 @@ export class UserController {
   async create(request: Request, response: Response) {
     try {
       const { name, email, password, avatar } = request.body;
-      console.log(name, email, password, avatar);
 
+      const checkIfUserExists = await prisma.users.findFirst({where: {
+        email:email
+      }});
+
+      if(checkIfUserExists) {
+        return response.status(401).json({message: 'Email already in use'})
+      }
+
+      const hashedPassword = await hash(password, 8);
       const user = await prisma.users.create({
         data: {
           name,
           email,
-          password,
+          password: hashedPassword,
           avatar,
         },
       });
